@@ -1,6 +1,8 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "./components/header";
+import { ErrorBoundary } from "react-error-boundary";
+import GlobalError from "./global-error";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,7 +28,9 @@ export default function RootLayout({ children }) {
       >
         <Header/>
         <main className="mt-12">
-        {children}
+          <ErrorBoundary fallback={<GlobalError/>}>
+            {children}
+          </ErrorBoundary>
         </main>
       </body>
     </html>
