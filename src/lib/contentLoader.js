@@ -16,3 +16,17 @@ export async function getPost(slug) {
         }
     });
 }
+
+export async function getPosts() {
+    const files = fs.readdirSync(join(process.cwd(), 'content'));
+
+    return await Promise.all(
+        files.map(async file => {
+        const { frontmatter } = await getPost(file);
+
+        return {
+            frontmatter,
+            slug: file.replace('.mdx', '')
+        }
+    }));
+}

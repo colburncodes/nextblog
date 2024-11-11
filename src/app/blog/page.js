@@ -1,21 +1,9 @@
 import Link from 'next/link';
-import { getPost } from '@/lib/contentLoader';
+import { getPosts } from '@/lib/contentLoader';
 import { formatDate } from '@/lib/dateFormatter';
-import fs from 'fs';
-import { join } from 'path';
 
 export default async function Page() {
-    const files = fs.readdirSync(join(process.cwd(), 'content'));
-
-    const posts = await Promise.all(
-        files.map(async file => {
-        const { frontmatter } = await getPost(file);
-
-        return {
-            frontmatter,
-            slug: file.replace('.mdx', '')
-        }
-    }));
+    const posts = await getPosts();
 
     return(
         <>

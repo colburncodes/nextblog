@@ -7,7 +7,7 @@ export default function Header() {
         <header className="flex justify-between md:items-center mt-5">
             <div className="flex items-center md:space-x-12">
                 <div className="hidden md:block">
-                    <Link href='/' className="text-xl">whocolburn</Link>
+                    <Link href='/' className="text-xl">./colburn.sh</Link>
                 </div>
                 <Navigation />
             </div>
