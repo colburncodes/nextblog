@@ -7,8 +7,8 @@ export default async function Page() {
 
     return(
         <>
-         <h1 className="mb-8 text-xl font-semibold">My Portfolio</h1>
-      <div className="text-lg text-gray-600 dark:text-gray-400 mb-8">Stay up to date with most recent posts</div>
+        <h1 className="mb-8 text-xl font-semibold">My Portfolio</h1>
+        <div className="text-lg text-gray-600 dark:text-gray-400 mb-8">Stay up to date with most recent posts</div>
         <hr className="mb-8" />
         <div>
         {posts

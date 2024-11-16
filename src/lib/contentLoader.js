@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { join } from 'path';
-import { compileMDX } from 'next-mdx-remote/rsc'
+import { compileMDX } from 'next-mdx-remote/rsc';
 
 export function loadPost(slug) {
     const file = slug.endsWith('.mdx') ? slug : `${slug}.mdx`;
@@ -19,7 +19,6 @@ export async function getPost(slug) {
 
 export async function getPosts() {
     const files = fs.readdirSync(join(process.cwd(), 'content'));
-
     return await Promise.all(
         files.map(async file => {
         const { frontmatter } = await getPost(file);

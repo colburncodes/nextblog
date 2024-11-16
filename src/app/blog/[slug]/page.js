@@ -1,7 +1,16 @@
 import { notFound } from 'next/navigation';
 import * as React from 'react';
-import { getPost } from '@/lib/contentLoader';
+import { getPost as getCachedPost } from '@/lib/contentLoader';
 import { formatDate } from '@/lib/dateFormatter';
+import { cache } from 'react';
+
+
+const getPost = cache(
+    async (slug) => {
+        return await getCachedPost(slug);
+    }
+)
+
 
   export async function generateMetadata({ params }, parent) {
     const {slug} = await params;
