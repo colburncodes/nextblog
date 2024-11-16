@@ -1,26 +1,20 @@
 import Link from 'next/link';
-import { getPost } from '@/lib/contentLoader';
+import { getPosts } from '@/lib/contentLoader';
 import { formatDate } from '@/lib/dateFormatter';
-import fs from 'fs';
-import { join } from 'path';
 
-export default async function Page() {
-    const files = fs.readdirSync(join(process.cwd(), 'content'));
-
-    const posts = await Promise.all(
-        files.map(async file => {
-        const { frontmatter } = await getPost(file);
-
-        return {
-            frontmatter,
-            slug: file.replace('.mdx', '')
-        }
-    }));
+export default async function Page({
+    searchParams
+}) {
+    const filters = (await searchParams).tags;
+    const tags = filters?.split(',');
+    const posts = await getPosts({
+        tags
+    });
 
     return(
         <>
-         <h1 className="mb-8 text-xl font-semibold">My Portfolio</h1>
-      <div className="text-lg text-gray-600 dark:text-gray-400 mb-8">Stay up to date with most recent posts</div>
+        <h1 className="mb-8 text-xl font-semibold">My Portfolio</h1>
+        <div className="text-lg text-gray-600 dark:text-gray-400 mb-8">Stay up to date with most recent posts</div>
         <hr className="mb-8" />
         <div>
         {posts
