@@ -17,9 +17,11 @@ export async function getPost(slug) {
     });
 }
 
-export async function getPosts() {
+export async function getPosts({
+    sortByDate = false, page = 1, limit = 10, tags
+} = {}) {
     const files = fs.readdirSync(join(process.cwd(), 'content'));
-    return await Promise.all(
+    const posts =  await Promise.all(
         files.map(async file => {
         const { frontmatter } = await getPost(file);
 
@@ -28,4 +30,15 @@ export async function getPosts() {
             slug: file.replace('.mdx', '')
         }
     }));
+
+    let filteredPosts = posts;
+
+    // check tags 
+    if (tags) {
+        filteredPosts = filteredPosts.filter(post => 
+                post.frontmatter.tags?.some(tag => tags.includes(tag))
+        );
+    }
+
+    return filteredPosts;
 }

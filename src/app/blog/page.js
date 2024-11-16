@@ -2,8 +2,14 @@ import Link from 'next/link';
 import { getPosts } from '@/lib/contentLoader';
 import { formatDate } from '@/lib/dateFormatter';
 
-export default async function Page() {
-    const posts = await getPosts();
+export default async function Page({
+    searchParams
+}) {
+    const filters = (await searchParams).tags;
+    const tags = filters?.split(',');
+    const posts = await getPosts({
+        tags
+    });
 
     return(
         <>
